@@ -1,0 +1,31 @@
+//Задание 26. Шпынова Арина ДТН-309//
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Введите целое число: ");
+        int number = scanner.nextInt();
+
+        number = Math.abs(number);
+
+        int evenCount = 0;
+        int oddCount = 0;
+
+        while (number > 0) {
+            int digit = number % 10;
+            if (digit % 2 == 0) {
+                evenCount++;
+            } else {
+                oddCount++;
+            }
+            number /= 10;
+        }
+
+        System.out.println("Четных цифр: " + evenCount);
+        System.out.println("Нечетных цифр: " + oddCount);
+
+        scanner.close();
+    }
+}
