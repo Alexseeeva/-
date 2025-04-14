@@ -1,0 +1,94 @@
+//Задание 21.Напишите программу, которая умножает две матрицы заданного размера. Пользователь вводит размеры матриц, элементы обеих матриц, и программа выводит результат умножения. ** можно перемножать матрицы произвольного размера. Есть обработка при введении неверных размеров (или элементов) матриц.Шпынова Арина ДТН-309//
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Введите количество строк первой матрицы: ");
+            int rows1 = Integer.parseInt(scanner.nextLine());
+
+            System.out.print("Введите количество столбцов первой матрицы: ");
+            int cols1 = Integer.parseInt(scanner.nextLine());
+
+            System.out.print("Введите количество строк второй матрицы: ");
+            int rows2 = Integer.parseInt(scanner.nextLine());
+
+            System.out.print("Введите количество столбцов второй матрицы: ");
+            int cols2 = Integer.parseInt(scanner.nextLine());
+
+            if (cols1 != rows2) {
+                System.out.println("Ошибка: количество столбцов первой матрицы должно быть равно количеству строк второй матрицы.");
+                return;
+            }
+
+            int[][] matrix1 = new int[rows1][cols1];
+            int[][] matrix2 = new int[rows2][cols2];
+
+            System.out.println("Введите элементы первой матрицы:");
+            inputMatrix(scanner, matrix1);
+
+            System.out.println("Введите элементы второй матрицы:");
+            inputMatrix(scanner, matrix2);
+
+            int[][] result = multiplyMatrices(matrix1, matrix2);
+
+            System.out.println("Результат умножения матриц:");
+            printMatrix(result);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Ошибка: введены некорректные числа.");
+        } catch (Exception e) {
+            System.out.println("Произошла ошибка: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+
+    private static void inputMatrix(Scanner scanner, int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.printf("Введите %d элементов строки %d, разделенных пробелом: ", matrix[0].length, i + 1);
+            String[] parts;
+            while (true) {
+                parts = scanner.nextLine().trim().split("\\s+");
+                if (parts.length != matrix[0].length) {
+                    System.out.printf("Ошибка: введите ровно %d чисел.%n", matrix[0].length);
+                } else {
+                    break;
+                }
+            }
+
+            for (int j = 0; j < parts.length; j++) {
+                matrix[i][j] = Integer.parseInt(parts[j]);
+            }
+        }
+    }
+
+    private static int[][] multiplyMatrices(int[][] a, int[][] b) {
+        int rows = a.length;
+        int cols = b[0].length;
+        int sumLen = b.length;
+
+        int[][] result = new int[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                for (int k = 0; k < sumLen; k++) {
+                    result[i][j] += a[i][k] * b[k][j];
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            for (int elem : row) {
+                System.out.printf("%5d", elem);
+            }
+            System.out.println();
+        }
+    }
+}
