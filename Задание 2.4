@@ -1,0 +1,21 @@
+//Задание 2.4 В строке типа StringBuilder удалите каждый второй по счету символ.
+//Должна быть модифицирована входная строка, а не порождена новая. 
+//Шпынова Арина ДТН-309//
+public class Main{
+    public static void removeEverySecondChar(StringBuilder sb) {
+        if (sb == null) {
+            throw new IllegalArgumentException("Входная строка не может быть null");
+        }
+
+
+        for (int i = 1; i < sb.length(); i++) {
+            sb.deleteCharAt(i);
+        }
+    }
+
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("studyincollegeomgu");
+        removeEverySecondChar(sb);
+        System.out.println("Результат: " + sb);
+    }
+}
