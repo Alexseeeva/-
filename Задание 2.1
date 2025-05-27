@@ -1,0 +1,27 @@
+//Задание 2.1 Здесь и в дальнейших заданиях в учебном году: создайте maven-проект с
+//набором следующих классов. Для каждого метода напишите набор unit-тестов.
+//Сохраните ваш проект в git-репозитории. Шпынова Арина ДТН-309//
+public class Main {
+    public static void main(String[] args) {
+        try {
+            String s = "lol";
+            int N = 3;
+
+            String result = repeatString(s, N);
+            System.out.println(result);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static String repeatString(String s, int N) {
+        if (N < 0) {
+            throw new IllegalArgumentException("N должно быть неотрицательным");
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < N; i++) {
+            result.append(s);
+        }
+        return result.toString();
+    }
+}
