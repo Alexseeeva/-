@@ -1,0 +1,72 @@
+//Задание 2.11 Создайте новый класс FinanceReportProcessor, в котором реализуйте
+//статические методы, все методы возвращают объект класса
+//FinanceReport:
+//1) получение платежей всех людей, чья фамилия начинается на
+//указанный символ (символ — входной параметр),
+//2) получение всех платежей, размер которых меньше заданной
+//величины. Шпынова Арина ДТН-309//
+public class FinanceReportProcessor {
+
+    public static FinanceReport filterByFirstLetter(FinanceReport report, char firstLetter) {
+        firstLetter = Character.toLowerCase(firstLetter);
+        int count = 0;
+
+
+        for (int i = 0; i < report.getPaymentCount(); i++) {
+            Payment payment = report.getPayment(i);
+            if (payment != null && Character.toLowerCase(payment.getFullName().charAt(0)) == firstLetter) {
+                count++;
+            }
+        }
+
+
+        FinanceReport filtered = new FinanceReport(
+                report.getReportAuthor(),
+                report.getReportDay(),
+                report.getReportMonth(),
+                report.getReportYear(),
+                count
+        );
+
+
+        int index = 0;
+        for (int i = 0; i < report.getPaymentCount(); i++) {
+            Payment payment = report.getPayment(i);
+            if (payment != null && Character.toLowerCase(payment.getFullName().charAt(0)) == firstLetter) {
+                filtered.setPayment(index++, new Payment(payment));
+            }
+        }
+
+        return filtered;
+    }
+
+
+    public static FinanceReport filterByAmountLessThan(FinanceReport report, int maxAmountInKopecks) {
+        int count = 0;
+
+        for (int i = 0; i < report.getPaymentCount(); i++) {
+            Payment payment = report.getPayment(i);
+            if (payment != null && payment.getAmountInKopecks() < maxAmountInKopecks) {
+                count++;
+            }
+        }
+
+        FinanceReport filtered = new FinanceReport(
+                report.getReportAuthor(),
+                report.getReportDay(),
+                report.getReportMonth(),
+                report.getReportYear(),
+                count
+        );
+
+        int index = 0;
+        for (int i = 0; i < report.getPaymentCount(); i++) {
+            Payment payment = report.getPayment(i);
+            if (payment != null && payment.getAmountInKopecks() < maxAmountInKopecks) {
+                filtered.setPayment(index++, new Payment(payment));
+            }
+        }
+
+        return filtered;
+    }
+}
